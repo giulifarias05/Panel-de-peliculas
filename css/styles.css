@@ -60,7 +60,7 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
+  --bs-body-color: #0b0c0c;
   --bs-body-bg: #fff;
 }
 
@@ -2568,6 +2568,8 @@ textarea.form-control-lg {
   filter: none;
   opacity: 0.65;
 }
+
+
 
 .form-range {
   width: 100%;
@@ -6222,6 +6224,8 @@ textarea.form-control-lg {
   height: 1rem;
   border-width: 0.2em;
 }
+
+
 
 @-webkit-keyframes spinner-grow {
   0% {
