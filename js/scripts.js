@@ -1,54 +1,84 @@
-/*!
-* Start Bootstrap - Freelancer v7.0.5 (https://startbootstrap.com/theme/freelancer)
-* Copyright 2013-2021 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-freelancer/blob/master/LICENSE)
-*/
-//
-// Scripts
-// 
 
-window.addEventListener('DOMContentLoaded', event => {
+let maze = [
+    [ "S", "#", "#", "."],
+    [ ".", ".", "#", "#"],
+    [ "#", ".", ".", "."],
+    [ "#", ".", "#", "G"],
+];
 
-    // Navbar shrink function
-    var navbarShrink = function () {
-        const navbarCollapsible = document.body.querySelector('#mainNav');
-        if (!navbarCollapsible) {
-            return;
-        }
-        if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
-        } else {
-            navbarCollapsible.classList.add('navbar-shrink')
-        }
 
-    };
+//Funcion donde se muestra si se resolvio o no el laberinto
+function resultadolaberinto(){
+if (resolvermaze(maze, 0, 0) == true) {
+    console.log("Llegaste al final del laberinto!");
+    
+} else if (resolvermaze(maze, 0, 0) == false) {
+    console.log("No pudiste llegar al final del laberinto..");
+}
+}
 
-    // Shrink the navbar 
-    navbarShrink();
 
-    // Shrink the navbar when page is scrolled
-    document.addEventListener('scroll', navbarShrink);
+// resolver laberinto
+function resolvermaze(maze, x, y) {
+    if (x == -1 ||x >= maze.length ||  y == -1 || y >= maze.length) {
+        return false;
+    }
+    if (maze[y][x] == "G") {
+        return true;
+    }
+    if (maze[y][x] == "#") {
+        return false;
+    }
+    if (maze[y][x] == "X") {
+        return false;
+    }
+    if (maze[y][x] == "+") {
+        return false;
+    }
+    if (maze[y][x] !== "S") {
+        maze[y][x] = "+";
+        console.log(maze);
+    }
+    //E
+    if (resolvermaze(maze, x + 1, y) == true) {
+        maze[y][x] = "+";
+        console.log(maze);
 
-    // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            offset: 72,
-        });
-    };
+        return true;
+       
+    }
+      //O
+      if (resolvermaze(maze, x - 1, y) == true) {
+        maze[y][x] = "+";
+        console.log(maze);
 
-    // Collapse responsive navbar when toggler is visible
-    const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
-            }
-        });
+        return true;
+    }
+    //N
+    if (resolvermaze(maze, x, y + 1) == true) {
+        maze[y][x] = "+";
+        console.log(maze);
+
+        return true;
+    }
+  
+    //S
+    if (resolvermaze(maze, x, y - 1) == true) {
+        maze[y][x] = "+";
+        console.log(maze);
+
+        return true;
+    }
+
+    return false;
+}
+console.log("Las + te marcaran el camino que recorriste ");
+//resultadolaberinto();
+console.log(maze);
+
+
+document.querySelectorAll('.printbutton').forEach(function(element) {
+    element.addEventListener('click', function() {
+        resultadolaberinto();
     });
-
 });
